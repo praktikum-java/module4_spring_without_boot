@@ -1,18 +1,20 @@
-package ru.practicum.item;
+package ru.practicum.note;
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import ru.practicum.user.User;
+import ru.practicum.item.Item;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.time.Instant;
 
 @Entity
-@Table(name = "items")
-@Getter @Setter @ToString
-public class Item {
+@Getter
+@Setter
+@ToString
+@Table(name = "item_notes")
+public class ItemNote {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,22 +24,18 @@ public class Item {
     // метода toString, чтобы не было случайных обращений
     // базе данных, например при выводе в лог.
     @ToString.Exclude
-    private User user;
+    private Item item;
 
-    @Column
-    private String url;
-    // здесь остальные поля
+    private String text;
 
-    @ElementCollection
-    @CollectionTable(name="tags", joinColumns=@JoinColumn(name="item_id"))
-    @Column(name="name")
-    private Set<String> tags = new HashSet<>();
+    @Column(name = "note_date")
+    private Instant dateOfNote = Instant.now();
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Item)) return false;
-        return id != null && id.equals(((Item) o).getId());
+        if (!(o instanceof ItemNote)) return false;
+        return id != null && id.equals(((ItemNote) o).getId());
     }
 
     @Override
