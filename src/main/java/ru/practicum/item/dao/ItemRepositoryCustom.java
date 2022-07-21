@@ -1,4 +1,6 @@
-package ru.practicum.item;
+package ru.practicum.item.dao;
+
+import ru.practicum.item.model.ItemInfoWithUrlState;
 
 import java.util.List;
 

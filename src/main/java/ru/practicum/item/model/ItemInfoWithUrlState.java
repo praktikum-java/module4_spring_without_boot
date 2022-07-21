@@ -1,6 +1,7 @@
-package ru.practicum.item;
+package ru.practicum.item.model;
 
 import org.springframework.http.HttpStatus;
+import ru.practicum.item.model.ItemInfo;
 
 public class ItemInfoWithUrlState implements ItemInfo {
 

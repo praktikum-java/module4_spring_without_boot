@@ -1,14 +1,11 @@
-package ru.practicum.item;
+package ru.practicum.item.dao;
 
 import org.springframework.context.annotation.Lazy;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.RequestEntity;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.RestTemplate;
+import ru.practicum.item.ItemUrlStatusProvider;
+import ru.practicum.item.model.ItemInfo;
+import ru.practicum.item.model.ItemInfoWithUrlState;
 
-import javax.annotation.PostConstruct;
-import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 

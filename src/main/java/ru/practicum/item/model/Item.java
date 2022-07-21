@@ -1,17 +1,18 @@
-package ru.practicum.item;
+package ru.practicum.item.model;
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "items")
 @Getter @Setter @ToString
-class Item {
+public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -21,7 +22,25 @@ class Item {
 
     @Column
     private String url;
-    // здесь остальные поля
+
+    @Column(name = "resolved_url")
+    private String resolvedUrl;
+
+    @Column(name = "mime_type")
+    private String mimeType;
+
+    private String title;
+
+    @Column(name = "has_image")
+    private boolean hasImage;
+
+    @Column(name = "has_video")
+    private boolean hasVideo;
+
+    private boolean unread = true;
+
+    @Column(name = "date_resolved")
+    private Instant dateResolved;
 
     @ElementCollection
     @CollectionTable(name="tags", joinColumns=@JoinColumn(name="item_id"))
