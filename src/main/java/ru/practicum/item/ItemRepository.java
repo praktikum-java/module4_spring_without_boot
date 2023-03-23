@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-interface ItemRepository extends JpaRepository<Item, Long>, ItemRepositoryCustom, QuerydslPredicateExecutor<Item> {
+public interface ItemRepository extends JpaRepository<Item, Long>, QuerydslPredicateExecutor<Item> {
 
     List<Item> findByUserId(long userId);
 
@@ -16,10 +16,16 @@ interface ItemRepository extends JpaRepository<Item, Long>, ItemRepositoryCustom
 
     List<ItemInfo> findAllByUserId(Long userId);
 
-    @Query("select new ru.practicum.item.ItemCountByUser(it.userId, count(it.id))" +
+    @Query("select it " +
+            "from Item as it " +
+            "join it.user as u " +
+            "where u.lastName like concat(?1, '%') ")
+    List<Item> findItemsByLastNamePrefix(String lastNamePrefix);
+
+    @Query("select new ru.practicum.item.ItemCountByUser(it.user.id, count(it.id))" +
             "from Item as it "+
             "where it.url like ?1 "+
-            "group by it.userId "+
+            "group by it.user.id "+
             "order by count(it.id) desc")
     List<ItemCountByUser> countItemsByUser(String urlPart);
 

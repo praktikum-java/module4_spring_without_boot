@@ -22,6 +22,11 @@ public class ItemController {
         }
     }
 
+    @GetMapping(params = "lastName")
+    public List<ItemDto> get(@RequestParam String lastName) {
+        return itemService.getUserItems(lastName);
+    }
+
     @PostMapping
     public ItemDto add(@RequestHeader("X-Later-User-Id") Long userId, @RequestBody ItemDto item) {
         return itemService.addNewItem(userId, item);
