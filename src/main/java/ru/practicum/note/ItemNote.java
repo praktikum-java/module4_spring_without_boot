@@ -3,7 +3,7 @@ package ru.practicum.note;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import ru.practicum.item.Item;
+import ru.practicum.item.model.Item;
 
 import javax.persistence.*;
 import java.time.Instant;

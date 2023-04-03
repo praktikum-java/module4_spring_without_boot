@@ -3,6 +3,10 @@ package ru.practicum.item;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
+import ru.practicum.item.model.Item;
+import ru.practicum.item.model.ItemCountByUser;
+import ru.practicum.item.model.ItemInfo;
+import ru.practicum.user.User;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -16,13 +20,15 @@ public interface ItemRepository extends JpaRepository<Item, Long>, QuerydslPredi
 
     List<ItemInfo> findAllByUserId(Long userId);
 
+    Optional<Item> findByUserAndResolvedUrl(User user, String resolvedUrl);
+
     @Query("select it " +
             "from Item as it " +
             "join it.user as u " +
             "where u.lastName like concat(?1, '%') ")
     List<Item> findItemsByLastNamePrefix(String lastNamePrefix);
 
-    @Query("select new ru.practicum.item.ItemCountByUser(it.user.id, count(it.id))" +
+    @Query("select new ru.practicum.item.model.ItemCountByUser(it.user.id, count(it.id))" +
             "from Item as it "+
             "where it.url like ?1 "+
             "group by it.user.id "+

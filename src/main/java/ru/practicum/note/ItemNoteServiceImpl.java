@@ -4,7 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.practicum.item.Item;
+import ru.practicum.common.InsufficientPermissionException;
+import ru.practicum.item.model.Item;
 import ru.practicum.item.ItemRepository;
 
 import java.util.List;
@@ -22,7 +23,8 @@ public class ItemNoteServiceImpl implements ItemNoteService {
     @Transactional
     public ItemNoteDto addNewItemNote(long userId, ItemNoteDto itemNoteDto) {
         Item item = itemRepository.findById(itemNoteDto.getItemId())
-                .orElseThrow(() -> new RuntimeException("Item not found"));
+                .orElseThrow(() ->  new InsufficientPermissionException(
+                        "You do not have permission to perform this operation"));
         ItemNote itemNote = itemNoteRepository.save(ItemNoteMapper.mapToItemNote(itemNoteDto, item));
         return ItemNoteMapper.mapToItemNoteDto(itemNote);
     }
