@@ -23,15 +23,15 @@ public interface ItemRepository extends JpaRepository<Item, Long>, QuerydslPredi
     List<Item> findItemsByLastNamePrefix(String lastNamePrefix);
 
     @Query("select new ru.practicum.item.ItemCountByUser(it.user.id, count(it.id))" +
-            "from Item as it "+
-            "where it.url like ?1 "+
-            "group by it.user.id "+
+            "from Item as it " +
+            "where it.url like ?1 " +
+            "group by it.user.id " +
             "order by count(it.id) desc")
     List<ItemCountByUser> countItemsByUser(String urlPart);
 
-    @Query(value = "select it.user_id, count(it.id) as count "+
-            "from items as it left join users as us on it.user_id = us.id "+
-            "where (cast(us.registration_date as date)) between ?1 and ?2 "+
+    @Query(value = "select it.user_id, count(it.id) as count " +
+            "from items as it left join users as us on it.user_id = us.id " +
+            "where (cast(us.registration_date as date)) between ?1 and ?2 " +
             "group by it.user_id", nativeQuery = true)
     List<ItemCountByUser> countByUserRegistered(LocalDate dateFrom, LocalDate dateTo);
 

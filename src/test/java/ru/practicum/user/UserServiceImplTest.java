@@ -19,8 +19,8 @@ import static org.hamcrest.Matchers.*;
 
 @Transactional
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
-@TestPropertySource(properties = { "db.name=test"})
-@SpringJUnitConfig( { PersistenceConfig.class, UserServiceImpl.class})
+@TestPropertySource(properties = {"db.name=test"})
+@SpringJUnitConfig({PersistenceConfig.class, UserServiceImpl.class})
 class UserServiceImplTest {
 
     private final EntityManager em;
@@ -37,7 +37,7 @@ class UserServiceImplTest {
         // then
         TypedQuery<User> query = em.createQuery("Select u from User u where u.email = :email", User.class);
         User user = query.setParameter("email", userDto.getEmail())
-                         .getSingleResult();
+                .getSingleResult();
 
         assertThat(user.getId(), notNullValue());
         assertThat(user.getFirstName(), equalTo(userDto.getFirstName()));
@@ -68,7 +68,7 @@ class UserServiceImplTest {
         // then
         assertThat(targetUsers, hasSize(sourceUsers.size()));
         for (UserDto sourceUser : sourceUsers) {
-            assertThat(targetUsers, hasItem( allOf(
+            assertThat(targetUsers, hasItem(allOf(
                     hasProperty("id", notNullValue()),
                     hasProperty("firstName", equalTo(sourceUser.getFirstName())),
                     hasProperty("lastName", equalTo(sourceUser.getLastName())),

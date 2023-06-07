@@ -15,7 +15,7 @@ public class ItemController {
     @GetMapping
     public List<ItemDto> get(@RequestHeader("X-Later-User-Id") long userId,
                              @RequestParam(required = false) Set<String> tags) {
-        if(tags == null || tags.isEmpty()) {
+        if (tags == null || tags.isEmpty()) {
             return itemService.getItems(userId);
         } else {
             return itemService.getItems(userId, tags);

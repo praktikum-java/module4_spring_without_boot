@@ -10,7 +10,7 @@ import lombok.Setter;
 public class ItemCountByUser {
 
     private Long userId;
-    
+
     private Long count;
-    
+
 }
