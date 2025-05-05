@@ -2,10 +2,12 @@ package ru.practicum.user;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 class UserServiceImpl implements UserService {
     private final UserRepository repository;
@@ -16,6 +18,7 @@ class UserServiceImpl implements UserService {
         return UserMapper.mapToUserDto(users);
     }
 
+    @Transactional
     @Override
     public UserDto saveUser(UserDto userDto) {
         User user = repository.save(UserMapper.mapToNewUser(userDto));
