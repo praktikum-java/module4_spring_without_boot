@@ -4,7 +4,7 @@ FROM openjdk:21-jdk-slim
 # Set the working directory in the container
 WORKDIR /app
 COPY . .
-RUN ls -la && ./mvnw clean package
+RUN ./mvnw clean package
 
 # Expose the port your app runs on
 EXPOSE 8080
